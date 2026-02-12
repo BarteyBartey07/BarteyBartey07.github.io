@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои образы Windows</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .main-btn {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 20px 0;
+            width: 100%;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .main-btn:hover {
+            background-color: #005a9e;
+            transform: scale(1.02);
+        }
+        .sub-buttons {
+            display: none;
+            margin-top: 20px;
+        }
+        .sub-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 0;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .sub-btn:hover {
+            background-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📁 Моя коллекция Windows</h1>
+        
+        <!-- Главная кнопка -->
+        <button class="main-btn" onclick="toggleButtons()">
+            🪟 ISO Windows
+        </button>
+
+        <!-- Скрытые кнопки с версиями -->
+        <div id="windowsVersions" class="sub-buttons">
+            <button class="sub-btn" onclick="window.open('ССЫЛКА_НА_WIN11', '_blank')">
+                Windows 11
+            </button>
+            <button class="sub-btn" onclick="window.open('ССЫЛКА_НА_WIN10', '_blank')">
+                Windows 10
+            </button>
+            <!-- Сюда будете добавлять новые кнопки -->
+        </div>
+    </div>
+
+    <script>
+        function toggleButtons() {
+            const subButtons = document.getElementById('windowsVersions');
+            if (subButtons.style.display === 'none' || subButtons.style.display === '') {
+                subButtons.style.display = 'block';
+            } else {
+                subButtons.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
