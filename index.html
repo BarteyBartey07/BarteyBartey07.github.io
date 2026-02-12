@@ -2,94 +2,464 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мои образы Windows</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Pirararov · Glass design</title>
+    <!-- Предзагрузка плавных шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
+        /* Сброс и база — синий океан стекла */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-            padding: 50px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0a1a2f, #030812);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            backdrop-filter: blur(2px);
         }
-        .container {
-            background: white;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+
+        /* Анимированные волны / голографические сферы */
+        .glass-orb {
+            position: fixed;
+            width: 70vmax;
+            height: 70vmax;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 180, 255, 0.12), rgba(10, 40, 100, 0.02));
+            filter: blur(80px);
+            top: -20vh;
+            right: -10vw;
+            z-index: 0;
+            animation: floatOrb 22s infinite alternate ease-in-out;
         }
-        h1 {
-            color: #333;
+
+        .glass-orb-second {
+            position: fixed;
+            width: 80vmin;
+            height: 80vmin;
+            border-radius: 50%;
+            background: radial-gradient(circle at 70% 80%, rgba(30, 144, 255, 0.1), rgba(25, 25, 112, 0.03));
+            filter: blur(90px);
+            bottom: -10vh;
+            left: -5vw;
+            z-index: 0;
+            animation: floatOrb2 19s infinite alternate ease-in-out;
         }
-        .main-btn {
-            background-color: #0078d7;
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 24px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 20px 0;
+
+        .glass-orb-third {
+            position: fixed;
+            width: 60vmin;
+            height: 60vmin;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(70, 130, 200, 0.1), rgba(8, 20, 50, 0.0));
+            filter: blur(70px);
+            bottom: 20vh;
+            right: 15vw;
+            z-index: 0;
+            animation: floatOrb3 25s infinite alternate;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.45; }
+            100% { transform: translate(80px, 60px) scale(1.3); opacity: 0.7; }
+        }
+        @keyframes floatOrb2 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            100% { transform: translate(-50px, -40px) scale(1.5); opacity: 0.6; }
+        }
+        @keyframes floatOrb3 {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.25; }
+            100% { transform: translate(30px, -30px) rotate(15deg); opacity: 0.55; }
+        }
+
+        /* Главный контейнер — всё стекло поверх */
+        .glass-panel {
+            position: relative;
+            z-index: 20;
             width: 100%;
-            font-weight: bold;
-            transition: 0.3s;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
-        .main-btn:hover {
-            background-color: #005a9e;
-            transform: scale(1.02);
+
+        /* ========== СТЕКЛЯННАЯ КНОПКА В ЛЕВОМ ВЕРХНЕМ УГЛУ ========== */
+        .pirararov-corner {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+            animation: gentleGlow 4s infinite alternate;
         }
-        .sub-buttons {
-            display: none;
+
+        .glass-btn {
+            background: rgba(10, 40, 80, 0.2);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 25px rgba(0,180,255,0.1);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+            cursor: pointer;
+            text-decoration: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            color: #f0fcff;
+            text-shadow: 0 2px 5px rgba(0,50,100,0.5);
+            border: 1px solid rgba(0, 200, 255, 0.25);
+        }
+
+        /* УБРАЛ СМАЙЛИК — теперь только текст Pirararov */
+        .glass-btn span {
+            display: inline-block;
+        }
+
+        .glass-btn:hover {
+            background: rgba(30, 100, 200, 0.3);
+            border: 1px solid rgba(0, 200, 255, 0.7);
+            box-shadow: 0 20px 40px rgba(0,100,255,0.25), inset 0 0 35px rgba(0,200,255,0.25);
+            transform: scale(1.03);
+            backdrop-filter: blur(20px);
+            letter-spacing: 2px;
+        }
+
+        @keyframes gentleGlow {
+            0% { box-shadow: 0 0 10px rgba(0,150,255,0.1); }
+            100% { box-shadow: 0 0 25px rgba(0,150,255,0.3); }
+        }
+
+        /* ========== ЦЕНТРАЛЬНЫЙ КОНТЕЙНЕР ========== */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* СТЕКЛЯННЫЕ КАРТОЧКИ ДЛЯ КНОПОК WINDOWS */
+        .windows-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: center;
+            align-items: center;
             margin-top: 20px;
+            perspective: 1200px;
         }
-        .sub-btn {
-            background-color: #28a745;
+
+        /* УЛЬТРА СТЕКЛО CARD */
+        .glass-card {
+            background: rgba(8, 40, 75, 0.2);
+            backdrop-filter: blur(14px) saturate(200%);
+            -webkit-backdrop-filter: blur(14px) saturate(200%);
+            border-radius: 48px;
+            padding: 40px 30px;
+            width: 280px;
+            min-width: 240px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(0, 200, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.5), 
+                        0 0 0 1px rgba(0, 150, 255, 0.1) inset,
+                        0 0 30px rgba(0,100,255,0.1) inset;
+            transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1), box-shadow 0.4s;
+            animation: cardRise 0.9s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            animation-fill-mode: forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:nth-child(1) { animation-delay: 0.2s; }
+        .glass-card:nth-child(2) { animation-delay: 0.4s; }
+
+        @keyframes cardRise {
+            0% { opacity: 0; transform: translateY(30px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .glass-card:hover {
+            background: rgba(15, 70, 120, 0.3);
+            border: 1px solid rgba(0, 200, 255, 0.6);
+            box-shadow: 0 40px 70px -10px rgba(0, 120, 210, 0.4), 
+                        0 0 0 2px rgba(0, 160, 255, 0.2) inset,
+                        0 0 60px rgba(0,160,255,0.3) inset;
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .windows-icon {
+            font-size: 4.8rem;
+            line-height: 1;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 12px rgba(0,120,255,0.4));
+            transition: transform 0.2s;
+        }
+
+        .glass-card:hover .windows-icon {
+            transform: scale(1.1);
+        }
+
+        .glass-card h2 {
             color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 10px 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-shadow: 0 5px 15px #003366;
+            background: linear-gradient(135deg, #f0f9ff, #cce7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card .version-desc {
+            color: rgba(210, 230, 255, 0.9);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+            backdrop-filter: blur(2px);
+            padding: 5px 12px;
+            border-radius: 30px;
+            background: rgba(0,50,90,0.2);
+            border: 0.5px solid rgba(0,200,255,0.2);
+        }
+
+        /* ПРЕКРАСНАЯ КНОПКА СКАЧИВАНИЯ */
+        .drive-link {
+            display: inline-block;
+            background: rgba(0, 92, 184, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 180, 255, 0.5);
+            padding: 14px 30px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            letter-spacing: 1.5px;
+            transition: all 0.25s;
             width: 100%;
-            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .sub-btn:hover {
-            background-color: #1e7e34;
+
+        .drive-link:hover {
+            background: rgba(0, 140, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 30px rgba(0, 150, 255, 0.4);
+            transform: scale(1.02);
+            backdrop-filter: blur(16px);
+            color: #ffffff;
+            text-shadow: 0 0 15px #00a6ff;
+            border-color: #9fc9ff;
         }
+
+        .drive-link::before {
+            content: "⛁";
+            font-size: 1.4rem;
+            filter: drop-shadow(0 0 8px white);
+        }
+
+        /* Отражение на карточках */
+        .reflection-line {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 30%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
+            filter: blur(2px);
+            opacity: 0.4;
+            pointer-events: none;
+            border-radius: 100%;
+        }
+
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .glass-card:hover::after {
+            opacity: 0.2;
+        }
+
+        /* ===== НОВЫЙ ФУТЕР ПО ЦЕНТРУ ===== */
+        .glass-footer-center {
+            margin-top: 80px;
+            color: rgba(200, 230, 255, 0.9);
+            font-size: 1.1rem;
+            backdrop-filter: blur(8px);
+            padding: 12px 32px;
+            border-radius: 60px;
+            background: rgba(0, 40, 80, 0.25);
+            border: 0.5px solid rgba(0, 200, 255, 0.25);
+            letter-spacing: 2px;
+            font-weight: 400;
+            text-shadow: 0 2px 10px rgba(0,100,200,0.3);
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: 0.2s;
+        }
+
+        .glass-footer-center:hover {
+            background: rgba(0, 70, 130, 0.3);
+            border-color: rgba(0, 200, 255, 0.6);
+            box-shadow: 0 0 25px rgba(0,160,255,0.2);
+        }
+
+        /* адаптив */
+        @media (max-width: 700px) {
+            .windows-row { gap: 25px; }
+            .glass-card { width: 260px; padding: 30px 20px; }
+            .pirararov-corner { top: 20px; left: 20px; }
+            .glass-btn { padding: 10px 22px; font-size: 1.1rem; }
+        }
+
+        a, button { cursor: pointer; }
+
+        /* Дополнительные штрихи */
+        body {
+            background: radial-gradient(circle at 80% 10%, #09263f, #020812);
+        }
+        .glass-orb { background: radial-gradient(circle at 30% 30%, rgba(0, 191, 255, 0.18), rgba(0,0,80,0.01)); }
+        .glass-orb-second { background: radial-gradient(circle at 70% 80%, rgba(25, 118, 210, 0.16), rgba(8, 20, 60, 0.02)); }
+        
+        /* Убираем старый footer, если есть */
+        .glass-footer { display: none; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📁 Моя коллекция Windows</h1>
-        
-        <!-- Главная кнопка -->
-        <button class="main-btn" onclick="toggleButtons()">
-            🪟 ISO Windows
-        </button>
+    <!-- Фоновые стеклянные сферы -->
+    <div class="glass-orb"></div>
+    <div class="glass-orb-second"></div>
+    <div class="glass-orb-third"></div>
 
-        <!-- Скрытые кнопки с версиями -->
-        <div id="windowsVersions" class="sub-buttons">
-            <button class="sub-btn" onclick="window.open('ССЫЛКА_НА_WIN11', '_blank')">
-                Windows 11
-            </button>
-            <button class="sub-btn" onclick="window.open('ССЫЛКА_НА_WIN10', '_blank')">
-                Windows 10
-            </button>
-            <!-- Сюда будете добавлять новые кнопки -->
-        </div>
+    <!-- ФИКСИРОВАННАЯ КНОПКА СЛЕВА ВВЕРХУ – просто Pirararov (без эмодзи) -->
+    <div class="pirararov-corner">
+        <a href="#" class="glass-btn" id="homeButton">
+            <span>Pirararov</span>  <!-- Смайлик ✨ полностью убран -->
+        </a>
     </div>
 
+    <!-- Главное стекло-контент (центр) -->
+    <main class="glass-panel">
+        <div class="center-content">
+            
+            <!-- ЗАГОЛОВОК "СТЕКЛЯННАЯ СИНЕВА" ПОЛНОСТЬЮ УДАЛЕН. 
+         Теперь просто две карточки, выше нет никакой надписи. 
+         Отступы сохраняются за счёт margin-bottom у .windows-row? 
+         Но оставим небольшую "воздушную" прослойку. -->
+            
+            <div style="height: 20px;"></div> <!-- легкий отступ сверху -->
+            
+            <!-- Две карточки Windows 11 и Windows 10 — ссылки на Google Drive -->
+            <div class="windows-row">
+                <!-- Windows 11 карточка -->
+                <div class="glass-card">
+                    <div class="windows-icon">🪟</div>
+                    <h2>Windows 11</h2>
+                    <div class="version-desc">последняя сборка · x64</div>
+                    <a href="https://drive.google.com/drive/folders/1WINDOWS11EXAMPLE" class="drive-link" target="_blank" rel="noopener noreferrer">
+                        Google Диск
+                    </a>
+                    <span class="reflection-line"></span>
+                </div>
+                <!-- Windows 10 карточка -->
+                <div class="glass-card">
+                    <div class="windows-icon">🪟</div>
+                    <h2>Windows 10</h2>
+                    <div class="version-desc">стабильная версия · LTSC</div>
+                    <a href="https://drive.google.com/drive/folders/1WINDOWS10EXAMPLE" class="drive-link" target="_blank" rel="noopener noreferrer">
+                        Google Диск
+                    </a>
+                    <span class="reflection-line"></span>
+                </div>
+            </div>
+            
+            <!-- НОВЫЙ ЦЕНТРАЛЬНЫЙ ФУТЕР: pirararov.ru -->
+            <div class="glass-footer-center">
+                pirararov.ru
+            </div>
+        </div>
+    </main>
+
     <script>
-        function toggleButtons() {
-            const subButtons = document.getElementById('windowsVersions');
-            if (subButtons.style.display === 'none' || subButtons.style.display === '') {
-                subButtons.style.display = 'block';
-            } else {
-                subButtons.style.display = 'none';
+        (function() {
+            "use strict";
+
+            // Эмуляция клика на Pirararov (без смайлика)
+            const homeBtn = document.getElementById('homeButton');
+            if (homeBtn) {
+                homeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    // небольшая подсветка
+                    document.body.style.transition = 'background 0.3s';
+                    document.body.style.background = 'radial-gradient(circle at 20% 30%, #0e2540, #03070e)';
+                    setTimeout(() => {
+                        document.body.style.background = ''; 
+                    }, 400);
+                    history.pushState(null, null, ' ');
+                });
             }
-        }
+
+            // Заглушки для демо-ссылок
+            const driveLinks = document.querySelectorAll('.drive-link');
+            driveLinks.forEach(link => {
+                if (link.href.includes('EXAMPLE') || link.href.includes('WINDOWS11EXAMPLE')) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        alert('🔵 Ссылка на Google Disk будет добавлена администратором. Сейчас это демо-заглушка.');
+                    });
+                }
+            });
+
+            console.log('Pirararov glass · синий горизонт, обновленная версия');
+        })();
     </script>
+
+    <!-- старый .glass-footer скрыт через display:none в CSS; не используется -->
 </body>
 </html>
