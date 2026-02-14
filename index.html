@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Pirararov · Neo Noir / Glass</title>
-    <!-- Шрифты обоих стилей -->
+    <title>Pirararov · Neo Noir</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ========== ГЛОБАЛЬНЫЙ СБРОС ========== */
         * {
             margin: 0;
             padding: 0;
@@ -17,102 +15,27 @@
         }
 
         body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0a0c0e;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            font-family: 'Inter', sans-serif;
-            transition: background 0.4s ease, backdrop-filter 0.3s;
+            position: relative;
         }
 
-        /* ========== КОНТЕЙНЕРЫ СТИЛЕЙ (ПЕРЕКЛЮЧЕНИЕ ЧЕРЕЗ data-АТРИБУТ) ========== */
-        body[data-theme="glass"] {
-            background: radial-gradient(circle at 20% 30%, #0a1a2f, #030812);
-        }
-        body[data-theme="noir"] {
-            background: #0a0c0e;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        /* ========== ОБЩИЙ СЛОЙ ДЛЯ ФОНОВЫХ ЭЛЕМЕНТОВ ========== */
-        .theme-backgrounds {
+        .geo-shape {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            top: 0;
+            left: 0;
             z-index: 0;
             pointer-events: none;
         }
 
-        /* ----- СТЕКЛЯННЫЕ СФЕРЫ (glass) ----- */
-        .glass-orb, .glass-orb-second, .glass-orb-third {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 0;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        body[data-theme="glass"] .glass-orb,
-        body[data-theme="glass"] .glass-orb-second,
-        body[data-theme="glass"] .glass-orb-third {
-            opacity: 1;
-        }
-        .glass-orb {
-            width: 70vmax;
-            height: 70vmax;
-            background: radial-gradient(circle at 30% 30%, rgba(0, 180, 255, 0.18), rgba(10, 40, 100, 0.02));
-            top: -20vh;
-            right: -10vw;
-            animation: floatOrb 22s infinite alternate ease-in-out;
-        }
-        .glass-orb-second {
-            width: 80vmin;
-            height: 80vmin;
-            background: radial-gradient(circle at 70% 80%, rgba(30, 144, 255, 0.16), rgba(25, 25, 112, 0.03));
-            bottom: -10vh;
-            left: -5vw;
-            animation: floatOrb2 19s infinite alternate ease-in-out;
-        }
-        .glass-orb-third {
-            width: 60vmin;
-            height: 60vmin;
-            background: radial-gradient(circle, rgba(70, 130, 200, 0.1), rgba(8, 20, 50, 0.0));
-            bottom: 20vh;
-            right: 15vw;
-            animation: floatOrb3 25s infinite alternate;
-        }
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.45; }
-            100% { transform: translate(80px, 60px) scale(1.3); opacity: 0.7; }
-        }
-        @keyframes floatOrb2 {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-            100% { transform: translate(-50px, -40px) scale(1.5); opacity: 0.6; }
-        }
-        @keyframes floatOrb3 {
-            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.25; }
-            100% { transform: translate(30px, -30px) rotate(15deg); opacity: 0.55; }
-        }
-
-        /* ----- ГЕОМЕТРИЧЕСКИЙ ФОН И СЕТКА (noir) - УСИЛЕННЫЙ ----- */
-        .geo-shape, .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        body[data-theme="noir"] .geo-shape,
-        body[data-theme="noir"] .grid-overlay {
-            opacity: 1;
-        }
         .geo-shape::before {
             content: '';
             position: absolute;
@@ -122,10 +45,10 @@
             height: 70%;
             background: linear-gradient(45deg, #ff0055 0%, #00ffcc 100%);
             clip-path: polygon(100% 0, 0 100%, 100% 100%);
-            opacity: 0.12; /* увеличена яркость */
+            opacity: 0.08;
             transform: rotate(15deg);
-            filter: blur(2px);
         }
+
         .geo-shape::after {
             content: '';
             position: absolute;
@@ -135,79 +58,34 @@
             height: 80%;
             background: linear-gradient(135deg, #7700ff, #ff00aa);
             clip-path: polygon(0 0, 0 100%, 100% 0);
-            opacity: 0.1; /* увеличена яркость */
+            opacity: 0.06;
             transform: rotate(-10deg);
-            filter: blur(2px);
         }
+
         .grid-overlay {
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-            background-size: 40px 40px; /* более частая сетка */
-        }
-        
-        /* Дополнительный неоновый акцент */
-        body[data-theme="noir"] .theme-backgrounds::after {
-            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255,0,85,0.03) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
         }
 
-        /* ========== ПЕРЕКЛЮЧАТЕЛЬ ТЕМ ========== */
-        .theme-switcher {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            z-index: 200;
+        .main-container {
+            position: relative;
+            z-index: 20;
+            width: 100%;
+            max-width: 1200px;
             display: flex;
-            gap: 12px;
-            background: rgba(20, 30, 40, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            border-radius: 60px;
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .theme-btn {
-            background: transparent;
-            border: none;
-            color: #ccddee;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 8px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: 0.2s;
-            font-family: inherit;
-            border: 1px solid transparent;
-        }
-        .theme-btn.active {
-            background: #1e2a36;
-            color: white;
-            border: 1px solid rgba(0,200,255,0.6);
-            box-shadow: 0 0 15px rgba(0,180,255,0.2);
-        }
-        body[data-theme="noir"] .theme-btn[data-theme="noir"] {
-            background: #ff0055;
-            color: white;
-            border-color: #ff99cc;
-            box-shadow: 0 0 20px rgba(255,0,85,0.5);
-        }
-        body[data-theme="glass"] .theme-btn[data-theme="glass"] {
-            background: rgba(0,140,255,0.5);
-            color: white;
-            border-color: #a0d0ff;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* ========== КНОПКА В ЛЕВОМ УГЛУ ========== */
         .corner-logo {
             position: fixed;
             top: 30px;
@@ -215,6 +93,7 @@
             z-index: 100;
             mix-blend-mode: difference;
         }
+
         .logo-btn {
             background: none;
             border: none;
@@ -229,67 +108,148 @@
             cursor: pointer;
             transition: 0.2s;
             border-bottom: 2px solid transparent;
-            text-shadow: 0 0 10px rgba(255,0,85,0.5);
         }
+
         .logo-btn:hover {
             border-bottom: 2px solid #ff0055;
             transform: scale(1.02);
-            text-shadow: 0 0 20px #ff0055;
         }
-        /* Стеклянная версия логотипа */
-        .glass-logo {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            z-index: 100;
-            display: none;
-        }
-        .glass-btn {
-            background: rgba(10, 40, 80, 0.2);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(100, 200, 255, 0.3);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 25px rgba(0,180,255,0.1);
-            color: white;
-            padding: 12px 28px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1.3rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
-            color: #f0fcff;
-            text-shadow: 0 2px 5px rgba(0,50,100,0.5);
-            border: 1px solid rgba(0,200,255,0.25);
-            transition: all 0.3s cubic-bezier(0.2,0.9,0.4,1);
-        }
-        .glass-btn:hover {
-            background: rgba(30,100,200,0.3);
-            border: 1px solid rgba(0,200,255,0.7);
-            box-shadow: 0 20px 40px rgba(0,100,255,0.25), inset 0 0 35px rgba(0,200,255,0.25);
-            transform: scale(1.03);
-            letter-spacing: 2px;
-        }
-        /* Переключение логотипов */
-        body[data-theme="glass"] .corner-logo { display: none; }
-        body[data-theme="glass"] .glass-logo { display: block; }
-        body[data-theme="noir"] .corner-logo { display: block; }
-        body[data-theme="noir"] .glass-logo { display: none; }
 
-        /* ========== ГЛАВНЫЙ КОНТЕЙНЕР ========== */
-        .main-container {
-            position: relative;
-            z-index: 20;
+        .secret-dino-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 37px;
+            height: 37px;
+            z-index: 200;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            opacity: 0;
+        }
+
+        .dino-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 1200px;
+            height: 100%;
+            background: rgba(10, 12, 14, 0.95);
+            backdrop-filter: blur(2px);
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
         }
 
-        /* ========== КАРТОЧКИ ========== */
+        .dino-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .dino-game-container {
+            background: #0e1012;
+            border: 1px solid #2a2e32;
+            padding: 30px 30px 40px;
+            box-shadow: 0 20px 60px -20px rgba(255,0,85,0.5);
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+        }
+
+        .dino-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid #2a2e32;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            color: #e5e9f0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+        }
+
+        .dino-scores span {
+            color: #ff0055;
+            font-weight: 600;
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+
+        .dino-canvas-wrapper {
+            display: flex;
+            justify-content: center;
+            background: #0a0c0e;
+            padding: 20px 0;
+            border: 1px solid #2a2e32;
+        }
+
+        canvas#dinoCanvas {
+            background: #0a0c0e;
+            display: block;
+            width: 100%;
+            height: auto;
+            cursor: none;
+        }
+
+        .dino-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            color: #6f7880;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .dino-restart {
+            background: transparent;
+            border: 1px solid #2a2e32;
+            color: #e5e9f0;
+            padding: 8px 25px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .dino-restart:hover {
+            border-color: #ff0055;
+            color: #ff0055;
+        }
+
+        .dino-close {
+            background: transparent;
+            border: none;
+            color: #6f7880;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            transition: 0.15s;
+        }
+        .dino-close:hover {
+            color: #ff0055;
+        }
+
+        .center-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+        }
+
         .cards-row {
             display: flex;
             flex-wrap: wrap;
@@ -297,46 +257,38 @@
             justify-content: center;
             align-items: stretch;
             margin-top: 40px;
-            width: 100%;
         }
 
-        /* ----- СТИЛЬ NOIR (МЕТАЛЛ) - УЛУЧШЕННЫЙ, КРАСИВЫЙ ----- */
         .metal-card {
             background: #121416;
             width: 300px;
+            padding: 0;
             border-radius: 4px;
             display: flex;
             flex-direction: column;
             border: 1px solid #2a2e32;
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,0,85,0) inset;
-            transition: all 0.25s cubic-bezier(0.2,0,0,1);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.9);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
             position: relative;
             opacity: 0;
             transform: translateY(20px);
             animation: riseUp 0.5s ease forwards;
-            overflow: hidden;
         }
-        body[data-theme="noir"] .metal-card {
-            display: flex;
-        }
-        body[data-theme="glass"] .metal-card {
-            display: none;
-        }
+
         .metal-card:nth-child(1) { animation-delay: 0.1s; }
         .metal-card:nth-child(2) { animation-delay: 0.2s; }
+
         @keyframes riseUp {
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+
         .metal-card:hover {
             transform: translateY(-8px);
             border-color: #ff0055;
-            box-shadow: 0 30px 60px -20px rgba(255,0,85,0.4), 0 0 0 1px rgba(255,0,85,0.3) inset;
+            box-shadow: 0 30px 60px -20px rgba(255,0,85,0.3);
         }
-        .metal-card:hover .accent-line {
-            opacity: 0.8;
-            background: linear-gradient(90deg, #ff0055, #00ffcc, #ff0055);
-        }
+
         .card-header {
             padding: 24px 24px 16px;
             border-bottom: 1px solid #2a2e32;
@@ -344,19 +296,17 @@
             align-items: center;
             gap: 12px;
         }
-        /* УЛУЧШЕННЫЙ, ЯРКИЙ ЗНАЧОК WINDOWS ДЛЯ NOIR */
+
         .os-icon {
-            font-size: 2.6rem; /* крупнее */
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.5)) brightness(1.3);
+            font-size: 2.2rem;
+            filter: grayscale(100%) brightness(1.5);
             transition: 0.2s;
-            color: #ffffff;
-            text-shadow: 0 0 15px #00a8ff, 0 0 30px #4dabf7;
         }
+
         .metal-card:hover .os-icon {
-            filter: drop-shadow(0 0 15px #ff0055) brightness(1.5);
-            transform: scale(1.1);
-            text-shadow: 0 0 20px #ff0055, 0 0 40px #ff3388;
+            filter: grayscale(0%) brightness(1.2);
         }
+
         .card-header h2 {
             color: #e5e9f0;
             font-size: 1.8rem;
@@ -364,27 +314,28 @@
             letter-spacing: -1px;
             margin: 0;
             line-height: 1;
-            text-shadow: 0 0 8px rgba(255,255,255,0.3);
         }
+
         .card-body {
             padding: 20px 24px;
             background: #0e1012;
             flex-grow: 1;
         }
+
         .version-tag {
             display: inline-block;
             background: #1e2226;
-            color: #e0e8f0; /* светлее */
+            color: #a0a8b0;
             padding: 6px 16px;
             border-radius: 2px;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: 1px;
             text-transform: uppercase;
-            border-left: 3px solid #ff0055; /* толще */
+            border-left: 2px solid #ff0055;
             margin-bottom: 24px;
-            box-shadow: 0 0 10px rgba(255,0,85,0.2);
         }
+
         .download-btn {
             display: flex;
             align-items: center;
@@ -403,299 +354,105 @@
             font-size: 0.85rem;
             margin-top: 8px;
         }
+
         .download-btn span {
-            color: #a0b0c0; /* светлее */
+            color: #6f7880;
             transition: 0.15s;
-            font-weight: 600;
         }
+
         .download-btn:hover {
             border-top-color: #ff0055;
         }
+
         .download-btn:hover span {
             color: #ff0055;
-            text-shadow: 0 0 10px rgba(255,0,85,0.5);
         }
+
         .download-btn::after {
             content: '→';
-            font-size: 1.3rem;
-            color: #a0b0c0;
+            font-size: 1.2rem;
+            color: #6f7880;
             transition: 0.15s;
         }
+
         .download-btn:hover::after {
             color: #ff0055;
-            transform: translateX(8px);
-            text-shadow: 0 0 10px #ff0055;
+            transform: translateX(5px);
         }
+
+        .site-footer {
+            margin-top: 100px;
+            color: #4a525a;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            padding: 20px 0;
+            border-top: 1px solid #1e2226;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            font-weight: 400;
+            transition: 0.2s;
+        }
+
+        .site-footer:hover {
+            color: #ff0055;
+            border-top-color: #ff0055;
+        }
+
         .accent-line {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px; /* толще */
-            background: linear-gradient(90deg, #ff0055, #00ffcc, #ff0055);
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
-        
-        /* Дополнительный неоновый глитч-эффект для Noir */
-        body[data-theme="noir"] .metal-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ff0055, #00ffcc, #7700ff, #ff00aa);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s;
-            border-radius: 6px;
-        }
-        body[data-theme="noir"] .metal-card:hover::before {
-            opacity: 0.15;
-        }
-
-        /* ----- СТИЛЬ GLASS (без изменений) ----- */
-        .glass-card {
-            background: rgba(8, 40, 75, 0.2);
-            backdrop-filter: blur(14px) saturate(200%);
-            -webkit-backdrop-filter: blur(14px) saturate(200%);
-            border-radius: 48px;
-            padding: 40px 30px;
-            width: 280px;
-            min-width: 240px;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            border: 1px solid rgba(0,200,255,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            border-right: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.5), 
-                        0 0 0 1px rgba(0,150,255,0.1) inset,
-                        0 0 30px rgba(0,100,255,0.1) inset;
-            transition: transform 0.35s cubic-bezier(0.2,0.9,0.4,1), box-shadow 0.4s;
-            animation: cardRise 0.9s ease forwards;
-            opacity: 0;
-            transform: translateY(30px);
-            animation-fill-mode: forwards;
-            position: relative;
-            overflow: hidden;
-        }
-        body[data-theme="glass"] .glass-card {
-            display: flex;
-        }
-        body[data-theme="noir"] .glass-card {
-            display: none;
-        }
-        .glass-card:nth-child(3) { animation-delay: 0.2s; } /* индексы скорректированы */
-        .glass-card:nth-child(4) { animation-delay: 0.4s; }
-        @keyframes cardRise {
-            0% { opacity: 0; transform: translateY(30px) scale(0.96); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .glass-card:hover {
-            background: rgba(15,70,120,0.3);
-            border: 1px solid rgba(0,200,255,0.6);
-            box-shadow: 0 40px 70px -10px rgba(0,120,210,0.4), 
-                        0 0 0 2px rgba(0,160,255,0.2) inset,
-                        0 0 60px rgba(0,160,255,0.3) inset;
-            transform: translateY(-8px) scale(1.02);
-        }
-        .windows-icon {
-            font-size: 4.8rem;
-            line-height: 1;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 10px 12px rgba(0,120,255,0.4));
-            transition: transform 0.2s;
-        }
-        .glass-card:hover .windows-icon {
-            transform: scale(1.1);
-        }
-        .glass-card h2 {
-            color: white;
-            font-size: 2.2rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            text-shadow: 0 5px 15px #003366;
-            background: linear-gradient(135deg, #f0f9ff, #cce7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .glass-card .version-desc {
-            color: rgba(210,230,255,0.9);
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-            font-weight: 300;
-            backdrop-filter: blur(2px);
-            padding: 5px 12px;
-            border-radius: 30px;
-            background: rgba(0,50,90,0.2);
-            border: 0.5px solid rgba(0,200,255,0.2);
-        }
-        .drive-link {
-            display: inline-block;
-            background: rgba(0,92,184,0.2);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0,180,255,0.5);
-            padding: 14px 30px;
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-decoration: none;
-            letter-spacing: 1.5px;
-            transition: all 0.25s;
-            width: 100%;
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .drive-link:hover {
-            background: rgba(0,140,255,0.4);
-            border: 1px solid rgba(255,255,255,0.8);
-            box-shadow: 0 15px 30px rgba(0,150,255,0.4);
-            transform: scale(1.02);
-            backdrop-filter: blur(16px);
-            color: #ffffff;
-            text-shadow: 0 0 15px #00a6ff;
-            border-color: #9fc9ff;
-        }
-        .drive-link::before {
-            content: "⛁";
-            font-size: 1.4rem;
-            filter: drop-shadow(0 0 8px white);
-        }
-        .reflection-line {
-            position: absolute;
-            top: 5%;
-            left: 5%;
-            width: 30%;
             height: 2px;
-            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
-            filter: blur(2px);
-            opacity: 0.4;
-            pointer-events: none;
-            border-radius: 100%;
-        }
-        .glass-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
-        }
-        .glass-card:hover::after {
-            opacity: 0.2;
+            background: linear-gradient(90deg, #ff0055, #00ffcc, transparent);
+            opacity: 0.5;
         }
 
-        /* ========== ФУТЕР ========== */
-        .site-footer {
-            margin-top: 100px;
-            color: #a0b0c0;
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            padding: 20px 0;
-            border-top: 1px solid #2a2e32;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            font-weight: 500;
-            transition: 0.2s;
-            display: none;
-            text-shadow: 0 0 5px rgba(255,0,85,0.3);
-        }
-        body[data-theme="noir"] .site-footer {
-            display: block;
-        }
-        .site-footer:hover {
-            color: #ff0055;
-            border-top-color: #ff0055;
-            text-shadow: 0 0 15px #ff0055;
-            letter-spacing: 6px;
-        }
+        a, button { cursor: pointer; }
 
-        .glass-footer-center {
-            margin-top: 80px;
-            color: rgba(200,230,255,0.9);
-            font-size: 1.1rem;
-            backdrop-filter: blur(8px);
-            padding: 12px 32px;
-            border-radius: 60px;
-            background: rgba(0,40,80,0.25);
-            border: 0.5px solid rgba(0,200,255,0.25);
-            letter-spacing: 2px;
-            font-weight: 400;
-            text-shadow: 0 2px 10px rgba(0,100,200,0.3);
-            display: inline-block;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            transition: 0.2s;
-            display: none;
-        }
-        body[data-theme="glass"] .glass-footer-center {
-            display: inline-block;
-        }
-        .glass-footer-center:hover {
-            background: rgba(0,70,130,0.3);
-            border-color: rgba(0,200,255,0.6);
-            box-shadow: 0 0 25px rgba(0,160,255,0.2);
-        }
-
-        /* Адаптивность */
         @media (max-width: 700px) {
             .cards-row { gap: 20px; }
-            .metal-card, .glass-card { width: 100%; max-width: 340px; }
-            .corner-logo, .glass-logo { top: 20px; left: 20px; }
+            .metal-card { width: 100%; max-width: 340px; }
+            .corner-logo { top: 20px; left: 20px; }
             .logo-btn { font-size: 1.4rem; }
-            .glass-btn { padding: 10px 22px; font-size: 1.1rem; }
-            .theme-switcher { top: 20px; right: 20px; padding: 6px 12px; }
-            .theme-btn { padding: 6px 16px; font-size: 0.8rem; }
         }
-        a, button { cursor: pointer; }
     </style>
 </head>
-<body data-theme="noir"> <!-- УСТАНОВЛЕНО ПО УМОЛЧАНИЮ НА NOIR -->
-    <!-- Все фоновые элементы -->
-    <div class="theme-backgrounds">
-        <div class="glass-orb"></div>
-        <div class="glass-orb-second"></div>
-        <div class="glass-orb-third"></div>
-        <div class="geo-shape"></div>
-        <div class="grid-overlay"></div>
-    </div>
+<body>
+    <div class="geo-shape"></div>
+    <div class="grid-overlay"></div>
 
-    <!-- ПЕРЕКЛЮЧАТЕЛЬ ТЕМ -->
-    <div class="theme-switcher">
-        <button class="theme-btn" data-theme="glass">Glass</button>
-        <button class="theme-btn active" data-theme="noir">Noir</button>
-    </div>
-
-    <!-- ЛОГОТИПЫ -->
     <div class="corner-logo">
-        <a href="#" class="logo-btn" id="homeButtonNoir">PIRARAROV</a>
-    </div>
-    <div class="glass-logo">
-        <a href="#" class="glass-btn" id="homeButtonGlass"><span>Pirararov</span></a>
+        <a href="#" class="logo-btn" id="homeButton">PIRARAROV</a>
     </div>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <button class="secret-dino-btn" id="secretDinoBtn" aria-label="Секретная игра"></button>
+
+    <div class="dino-overlay" id="dinoOverlay">
+        <div class="dino-game-container">
+            <button class="dino-close" id="dinoClose">✕</button>
+            <div class="dino-header">
+                <div class="dino-title">NOIR DINOSAUR</div>
+                <div class="dino-scores">
+                    <span id="dinoScoreDisplay">0</span> · РЕКОРД <span id="dinoHighScoreDisplay">0</span>
+                </div>
+            </div>
+            <div class="dino-canvas-wrapper">
+                <canvas id="dinoCanvas" width="600" height="150"></canvas>
+            </div>
+            <div class="dino-controls">
+                <span>⎆ ПРОБЕЛ / ТАП</span>
+                <button class="dino-restart" id="dinoRestartBtn">⟲ РЕСТАРТ</button>
+            </div>
+        </div>
+    </div>
+
     <main class="main-container">
-        <div class="center-section" style="width:100%; display:flex; flex-direction:column; align-items:center;">
-            <div style="height:30px;"></div>
-            
-            <!-- КАРТОЧКИ -->
+        <div class="center-section">
+            <div style="height: 30px;"></div>
             <div class="cards-row">
-                <!-- Windows 11 Noir -->
                 <div class="metal-card">
                     <div class="accent-line"></div>
                     <div class="card-header">
@@ -709,7 +466,6 @@
                         </a>
                     </div>
                 </div>
-                <!-- Windows 10 Noir -->
                 <div class="metal-card">
                     <div class="accent-line"></div>
                     <div class="card-header">
@@ -723,28 +479,8 @@
                         </a>
                     </div>
                 </div>
-
-                <!-- Windows 11 Glass -->
-                <div class="glass-card">
-                    <div class="windows-icon">🪟</div>
-                    <h2>Windows 11</h2>
-                    <div class="version-desc">последняя сборка · x64</div>
-                    <a href="https://drive.google.com/drive/folders/1WINDOWS11EXAMPLE" class="drive-link" target="_blank" rel="noopener noreferrer">Google Диск</a>
-                    <span class="reflection-line"></span>
-                </div>
-                <!-- Windows 10 Glass -->
-                <div class="glass-card">
-                    <div class="windows-icon">🪟</div>
-                    <h2>Windows 10</h2>
-                    <div class="version-desc">стабильная версия · LTSC</div>
-                    <a href="https://drive.google.com/drive/folders/1WINDOWS10EXAMPLE" class="drive-link" target="_blank" rel="noopener noreferrer">Google Диск</a>
-                    <span class="reflection-line"></span>
-                </div>
             </div>
-
-            <!-- ФУТЕРЫ -->
             <div class="site-footer">pirararov.ru</div>
-            <div class="glass-footer-center">pirararov.ru</div>
         </div>
     </main>
 
@@ -752,79 +488,310 @@
         (function() {
             "use strict";
 
-            // ========== ПЕРЕКЛЮЧЕНИЕ ТЕМ ==========
-            const body = document.body;
-            const themeBtns = document.querySelectorAll('.theme-btn');
-            
-            function setTheme(theme) {
-                body.setAttribute('data-theme', theme);
-                localStorage.setItem('pirararov-theme', theme);
-                themeBtns.forEach(btn => {
-                    const btnTheme = btn.getAttribute('data-theme');
-                    if (btnTheme === theme) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
+            const homeBtn = document.getElementById('homeButton');
+            if (homeBtn) {
+                homeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.body.style.backgroundColor = '#1a1c1e';
+                    setTimeout(() => {
+                        document.body.style.backgroundColor = '';
+                    }, 150);
                 });
             }
 
-            // Инициализация темы: по умолчанию noir (установлено в HTML)
-            // но если есть сохраненная тема, используем её
-            const savedTheme = localStorage.getItem('pirararov-theme');
-            if (savedTheme) {
-                setTheme(savedTheme);
-            } else {
-                setTheme('noir'); // явно устанавливаем noir
-            }
-
-            themeBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    const theme = this.getAttribute('data-theme');
-                    setTheme(theme);
-                });
+            const downloadLinks = document.querySelectorAll('.download-btn');
+            downloadLinks.forEach(link => {
+                if (link.href.includes('EXAMPLE')) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        alert('▸ Ссылка будет активирована администратором');
+                    });
+                }
             });
 
-            // ========== ЛОГОТИПЫ: СКРОЛЛ ВВЕРХ ==========
-            const homeNoir = document.getElementById('homeButtonNoir');
-            const homeGlass = document.getElementById('homeButtonGlass');
+            // ========== ИГРА ДИНОЗАВРИК ==========
+            const overlay = document.getElementById('dinoOverlay');
+            const secretBtn = document.getElementById('secretDinoBtn');
+            const closeBtn = document.getElementById('dinoClose');
+            const canvas = document.getElementById('dinoCanvas');
+            const ctx = canvas.getContext('2d');
+            const scoreSpan = document.getElementById('dinoScoreDisplay');
+            const highScoreSpan = document.getElementById('dinoHighScoreDisplay');
+            const restartBtn = document.getElementById('dinoRestartBtn');
 
-            function handleHomeClick(e) {
+            let gameRunning = false;
+            let score = 0;
+            let highScore = 0;
+            let gameLoopId = null;
+
+            const dino = {
+                x: 50,
+                y: 110,
+                width: 20,
+                height: 25,
+                vy: 0,
+                gravity: 0.5,
+                jumpPower: -10,
+                grounded: true
+            };
+
+            let obstacles = [];
+            let frameCounter = 0;
+            const baseSpeed = 4;
+            let framesSinceLastSpawn = 0;
+            let nextSpawnFrame = 40; // начальное значение
+
+            function resetGame() {
+                gameRunning = true;
+                score = 0;
+                obstacles = [];
+                dino.y = 110;
+                dino.vy = 0;
+                dino.grounded = true;
+                frameCounter = 0;
+                framesSinceLastSpawn = 0;
+                nextSpawnFrame = getRandomSpawnDelay();
+                updateScoreDisplay();
+            }
+
+            function getRandomSpawnDelay() {
+                // Рандомный интервал от 35 до 90 кадров
+                return 35 + Math.floor(Math.random() * 55);
+            }
+
+            function jump() {
+                if (!gameRunning) return;
+                if (dino.grounded) {
+                    dino.vy = dino.jumpPower;
+                    dino.grounded = false;
+                }
+            }
+
+            function updateScoreDisplay() {
+                scoreSpan.textContent = Math.floor(score / 2);
+                if (Math.floor(score / 2) > highScore) {
+                    highScore = Math.floor(score / 2);
+                }
+                highScoreSpan.textContent = highScore;
+            }
+
+            function checkCollision() {
+                for (let obs of obstacles) {
+                    if (dino.x < obs.x + obs.w &&
+                        dino.x + dino.width > obs.x &&
+                        dino.y < obs.y + obs.h &&
+                        dino.y + dino.height > obs.y) {
+                        gameRunning = false;
+                        break;
+                    }
+                }
+            }
+
+            function spawnObstacleGroup() {
+                // Случайно выбираем: одиночный кактус или группа
+                const type = Math.random();
+                
+                if (type < 0.5) { // 50% одиночный кактус
+                    obstacles.push({
+                        x: canvas.width,
+                        y: 110,
+                        w: 12,
+                        h: 22
+                    });
+                } else if (type < 0.8) { // 30% два кактуса
+                    obstacles.push({
+                        x: canvas.width,
+                        y: 110,
+                        w: 12,
+                        h: 22
+                    });
+                    obstacles.push({
+                        x: canvas.width + 25,
+                        y: 110,
+                        w: 12,
+                        h: 26
+                    });
+                } else { // 20% три кактуса
+                    obstacles.push({
+                        x: canvas.width,
+                        y: 110,
+                        w: 12,
+                        h: 20
+                    });
+                    obstacles.push({
+                        x: canvas.width + 20,
+                        y: 110,
+                        w: 12,
+                        h: 28
+                    });
+                    obstacles.push({
+                        x: canvas.width + 40,
+                        y: 110,
+                        w: 12,
+                        h: 24
+                    });
+                }
+            }
+
+            function update() {
+                if (!gameRunning) return;
+
+                // Физика
+                dino.vy += dino.gravity;
+                dino.y += dino.vy;
+
+                if (dino.y >= 110) {
+                    dino.y = 110;
+                    dino.vy = 0;
+                    dino.grounded = true;
+                }
+
+                // Движение препятствий
+                for (let i = obstacles.length - 1; i >= 0; i--) {
+                    obstacles[i].x -= baseSpeed;
+                    if (obstacles[i].x + obstacles[i].w < 0) {
+                        obstacles.splice(i, 1);
+                    }
+                }
+
+                // Спавн с разными интервалами
+                framesSinceLastSpawn++;
+                
+                if (framesSinceLastSpawn >= nextSpawnFrame) {
+                    // Проверяем, нет ли препятствий слишком близко
+                    let tooClose = false;
+                    for (let obs of obstacles) {
+                        if (obs.x > canvas.width - 120) {
+                            tooClose = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!tooClose) {
+                        spawnObstacleGroup();
+                        framesSinceLastSpawn = 0;
+                        nextSpawnFrame = getRandomSpawnDelay();
+                    }
+                }
+
+                checkCollision();
+
+                if (gameRunning) {
+                    score++;
+                    updateScoreDisplay();
+                }
+
+                frameCounter++;
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Линия земли с эффектом движения
+                ctx.beginPath();
+                ctx.strokeStyle = '#2a2e32';
+                ctx.lineWidth = 2;
+                ctx.moveTo(0, 135);
+                ctx.lineTo(canvas.width, 135);
+                ctx.stroke();
+
+                // Динозавр
+                ctx.fillStyle = '#e5e9f0';
+                ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+                
+                // Глаз
+                ctx.fillStyle = dino.grounded ? '#ff0055' : '#00ffcc';
+                ctx.fillRect(dino.x + 14, dino.y + 5, 4, 4);
+                
+                // Спинной гребень
+                ctx.fillStyle = '#ff0055';
+                ctx.fillRect(dino.x + 5, dino.y - 2, 10, 2);
+
+                // Препятствия
+                for (let obs of obstacles) {
+                    // Кактус
+                    ctx.fillStyle = '#6f7880';
+                    ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+                    
+                    // Веточки
+                    ctx.fillStyle = '#4a525a';
+                    ctx.fillRect(obs.x + 2, obs.y - 4, 3, 6);
+                    ctx.fillRect(obs.x + 7, obs.y - 5, 3, 7);
+                    
+                    // Акцент
+                    ctx.fillStyle = '#ff0055';
+                    ctx.globalAlpha = 0.3;
+                    ctx.fillRect(obs.x + obs.w, obs.y, 2, obs.h);
+                    ctx.globalAlpha = 1.0;
+                }
+
+                // Game Over
+                if (!gameRunning && obstacles.length > 0) {
+                    ctx.font = 'bold 24px "Space Grotesk", sans-serif';
+                    ctx.fillStyle = '#ff0055';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('GAME OVER', canvas.width/2, 60);
+                    
+                    ctx.font = '12px "Space Grotesk", sans-serif';
+                    ctx.fillStyle = '#6f7880';
+                    ctx.fillText('НАЖМИ РЕСТАРТ', canvas.width/2, 90);
+                }
+            }
+
+            function gameLoop() {
+                if (gameRunning) {
+                    update();
+                }
+                draw();
+                gameLoopId = requestAnimationFrame(gameLoop);
+            }
+
+            function showGame() {
+                overlay.classList.add('active');
+                resetGame();
+                if (!gameLoopId) {
+                    gameLoop();
+                }
+            }
+
+            function hideGame() {
+                overlay.classList.remove('active');
+            }
+
+            secretBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                // Визуальный эффект
-                if (body.getAttribute('data-theme') === 'noir') {
-                    body.style.backgroundColor = '#1a1c1e';
-                    setTimeout(() => { body.style.backgroundColor = ''; }, 150);
-                } else {
-                    body.style.transition = 'background 0.3s';
-                    body.style.background = 'radial-gradient(circle at 20% 30%, #0e2540, #03070e)';
-                    setTimeout(() => { body.style.background = ''; }, 400);
-                }
-            }
+                showGame();
+            });
 
-            if (homeNoir) homeNoir.addEventListener('click', handleHomeClick);
-            if (homeGlass) homeGlass.addEventListener('click', handleHomeClick);
+            closeBtn.addEventListener('click', hideGame);
 
-            // ========== ЗАГЛУШКИ ДЛЯ ССЫЛОК ==========
-            const noirLinks = document.querySelectorAll('.metal-card .download-btn');
-            const glassLinks = document.querySelectorAll('.glass-card .drive-link');
+            restartBtn.addEventListener('click', () => {
+                resetGame();
+            });
 
-            function demoAlert(e) {
-                if (e.currentTarget.href.includes('EXAMPLE')) {
+            window.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && overlay.classList.contains('active')) {
                     e.preventDefault();
-                    const theme = body.getAttribute('data-theme');
-                    const msg = theme === 'glass' 
-                        ? '🔵 Ссылка на Google Disk будет добавлена администратором. Сейчас это демо-заглушка.' 
-                        : '▸ Ссылка будет активирована администратором';
-                    alert(msg);
+                    jump();
                 }
-            }
+            });
 
-            noirLinks.forEach(link => link.addEventListener('click', demoAlert));
-            glassLinks.forEach(link => link.addEventListener('click', demoAlert));
+            canvas.addEventListener('click', (e) => {
+                if (overlay.classList.contains('active')) {
+                    e.preventDefault();
+                    jump();
+                }
+            });
 
-            console.log('Pirararov · Unified: Glass & Noir (Noir по умолчанию, улучшенный)');
+            canvas.addEventListener('touchstart', (e) => {
+                if (overlay.classList.contains('active')) {
+                    e.preventDefault();
+                    jump();
+                }
+            });
+
+            gameLoop();
         })();
     </script>
 </body>
